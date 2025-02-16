@@ -1,44 +1,52 @@
 import java.util.Scanner;
 
 public class Main {
-
+	
 	static int i = 0;
+	static boolean bigLeap = false;
 	
 	public static void main(String [] args) {
 		
-        Scanner scan = new Scanner(System.in);
-        int q = scan.nextInt();
-        
-        while (q-- > 0) {
-            int n = scan.nextInt();
-            int leap = scan.nextInt();
-            
-            int[] game = new int[n];
-            for (int i = 0; i < n; i++) {
-                game[i] = scan.nextInt();
-            }
-
-            System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
-            i = 0;
-        }
-        
-        scan.close();
+		int[] game = {0, 0, 1, 1, 1, 0};
+		int leap = 3;
+		
+		System.out.println(canWin(leap, game));
+		
     }
 	
     public static boolean canWin(int leap, int[] game) {
     	
-    	while(true) {
+    	while(i<game.length) {
     		
-    		if(i+leap >= game.length) return true;
-    		else if(game[i+leap] == 0) i = i + leap;
-    		else if(game[i+1] == 0) i++;
-    		else return false;
+    		//Base cases
+    		if(i+1 == game.length) return true;
+    		else if(i+leap >=game.length) return true;
     		
-    		if(canWin(leap, game)) return true;
-    		else if(i>0 && game[i-1] == 0) i--;
-    		else return false;
+    		//Decrementing i to the leftmost 0 after big leap
+    		if(bigLeap) {
+    			while(game[i-1] == 0) {
+    				i--;
+    			}
+    		}
+    		
+    		if(game[i] == 0) {
+    			
+    			if(i+leap >= game.length) return true;
+    			
+    		}
+    		
+    		//Incrementing logic
+    		if(game[i+1] == 0) {
+    			i++;
+    			bigLeap = false;
+    		} else if(game[i+leap] == 0) {
+    			i = i + leap; 
+    			bigLeap = true;
+    		}
     		
     	}
+    	
+    	return false;
     	
     }
 	
