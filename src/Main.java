@@ -19,6 +19,7 @@ public class Main {
             }
 
             System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+            i = 0;
         }
         
         scan.close();
@@ -34,7 +35,7 @@ public class Main {
     		else return false;
     		
     		if(canWin(leap, game)) return true;
-    		else if(i>0 && game[i-1] == 0);
+    		else if(i>0 && game[i-1] == 0) i--;
     		else return false;
     		
     	}
