@@ -7,7 +7,7 @@ public class Main {
 	
 	public static void main(String [] args) {
 		
-		int[] game = {0, 0, 1, 1, 1, 0};
+		int[] game = {0, 0, 0, 0, 1, 0, 1, 1, 0};
 		int leap = 3;
 		
 		System.out.println(canWin(leap, game));
@@ -16,38 +16,22 @@ public class Main {
 	
     public static boolean canWin(int leap, int[] game) {
     	
-    	while(i<game.length) {
-    		
-    		//Base cases
-    		if(i+1 == game.length) return true;
-    		else if(i+leap >=game.length) return true;
-    		
-    		//Decrementing i to the leftmost 0 after big leap
-    		if(bigLeap) {
-    			while(game[i-1] == 0) {
-    				i--;
-    			}
-    		}
-    		
-    		if(game[i] == 0) {
-    			
-    			if(i+leap >= game.length) return true;
-    			
-    		}
-    		
-    		//Incrementing logic
-    		if(game[i+1] == 0) {
-    			i++;
-    			bigLeap = false;
-    		} else if(game[i+leap] == 0) {
-    			i = i + leap; 
-    			bigLeap = true;
-    		}
-    		
-    	}
+    	return canWin(leap, game, 0);
+    	
+    }
+	
+    public static boolean canWin(int leap, int[] game, int i) {
+    	
+    	if(i >= game.length) return true;
+    	if(i < 0 || game[i] == 1) return false;
+    	game[i] = 1; //Marking the visited indices
+    	
+    	if(canWin(leap, game, i+1)) return true;
+    	if(canWin(leap, game, i+leap)) return true;
+    	if(canWin(leap, game, i-1)) return true;
     	
     	return false;
     	
     }
-	
+    
 }
