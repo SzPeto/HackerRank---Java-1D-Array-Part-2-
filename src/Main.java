@@ -26,8 +26,8 @@ public class Main {
     	if(i < 0 || game[i] == 1) return false;
     	game[i] = 1; //Marking the visited indices
     	
-    	if(canWin(leap, game, i+1)) return true;
     	if(canWin(leap, game, i+leap)) return true;
+    	if(canWin(leap, game, i+1)) return true;
     	if(canWin(leap, game, i-1)) return true;
     	
     	return false;
